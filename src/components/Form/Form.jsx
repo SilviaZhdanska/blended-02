@@ -6,11 +6,7 @@ export const Form = ({ onSubmit }) => {
   function handleSubmit(event) {
     event.preventDefault();
     const value = event.target.elements.search.value;
-    const id = nanoid();
-    onSubmit({
-      text: value,
-      id,
-    });
+    onSubmit(value);
     event.target.reset();
   }
 

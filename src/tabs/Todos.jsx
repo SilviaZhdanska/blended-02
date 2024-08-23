@@ -2,6 +2,7 @@ import { Text } from 'components';
 import { useState, useEffect } from 'react';
 import { Form } from '../components/Form/Form';
 import { TodoList } from 'components';
+import { nanoid } from 'nanoid';
 
 export const Todos = () => {
   const [todos, setTodos] = useState(() => {
@@ -14,7 +15,13 @@ export const Todos = () => {
   }, [todos]);
 
   function addToDo(value) {
-    setTodos(prevToDos => [...prevToDos, value]);
+    setTodos(prevToDos => [
+      ...prevToDos,
+      {
+        text: value,
+        id: nanoid(),
+      },
+    ]);
   }
   function deleteTodo(id) {
     setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
