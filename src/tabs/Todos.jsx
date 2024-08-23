@@ -1,10 +1,17 @@
 import { Text } from 'components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form } from '../components/Form/Form';
 import { TodoList } from 'components';
 
 export const Todos = () => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const savedTodos = JSON.parse(localStorage.getItem('todos'));
+    return savedTodos ?? [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   function addToDo(value) {
     setTodos(prevToDos => [...prevToDos, value]);
@@ -12,6 +19,7 @@ export const Todos = () => {
   function deleteTodo(id) {
     setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
   }
+
   return (
     <div>
       <Form onSubmit={addToDo} />

@@ -11,6 +11,7 @@ export const Form = ({ onSubmit }) => {
       text: value,
       id,
     });
+    event.target.reset();
   }
 
   return (
